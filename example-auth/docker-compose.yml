@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+
+  db:
+    container_name: pg_container_app
+    image: postgres
+    volumes:
+      - ~/volumes/app-spring/pgadmin/postgresql/:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - pgadmin_postgres_network
+
+  app:
+    image: 'auth-example:latest'
+    build:
+      context: .
+    container_name: app
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/security
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1234
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+      - SPRING_JPA_SHOW_SQL=true
+    ports:
+      - 8080:8080
+    networks:
+      - pgadmin_postgres_network    
+      
+      
+networks:
+  pgadmin_postgres_network:
+    driver: bridge

@@ -1,0 +1,45 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/security
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: 1234
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
+  sql:
+    init:
+      mode: always       
+  jpa:
+    defer-datasource-initialization: true
+    open-in-view: true
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL94Dialect
+
+jwt:
+  secret: frase secreta
+
+  error:
+    include-stacktrace: never
+
+password:
+  encode:
+    magic-phrase: a la grande le puse cuca
+    
+refresh-token:
+  encode:
+    secret: frase para cifrar el refresh token
+    salt: 4c1108e3176cbf0a
+    
+server:
+  servlet:
+    session:
+      cookie:
+        http-only: true
+    
+    
+    
