@@ -20,12 +20,17 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQL94Dialect
 
-jwt:
-  secret: frase secreta
-
+server:
+  servlet:
+    session:
+      cookie:
+        http-only: true
   error:
     include-stacktrace: never
 
+jwt:
+  secret: frase secreta
+  
 password:
   encode:
     magic-phrase: a la grande le puse cuca
@@ -34,12 +39,5 @@ refresh-token:
   encode:
     secret: frase para cifrar el refresh token
     salt: 4c1108e3176cbf0a
-    
-server:
-  servlet:
-    session:
-      cookie:
-        http-only: true
-    
     
     
